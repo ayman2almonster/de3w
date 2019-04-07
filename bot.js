@@ -18,18 +18,6 @@ client.on('message', message => {
         message.author.send(embed)
 }
 
-.on("guildMemberAdd", async function (member) {
-    if (data[member.guild.id]) {
-        if (member.guild.roles.get(data[member.guild.id])) {
-            try {
-                member.addRole(member.guild.roles.get(data[member.guild.id]));
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    }
-})
-
 client.on('message', message => {
     if(message.content.startsWith(prefix + 'ip')) {
    const args = message.content.split(" ")
