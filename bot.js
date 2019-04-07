@@ -19,12 +19,7 @@ client.on('message', message => {
 }
 });
 
-client.on('message', message => {
-if(!message.channel.guild) return;
-if (message.content.startsWith("$ping")) {
-    message.channel.sendMessage(`Pong ! `${Date.now() - message.createdTimestamp} ms`:watch:`);
-    }
-});
+
 
 if (!Client) {
     var { Client } = require("discord.js");
