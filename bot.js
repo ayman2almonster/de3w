@@ -17,8 +17,6 @@ client.on('message', message => {
     
         message.author.send(embed)
 }
-});
-
 
 
 if (!Client) {
