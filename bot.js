@@ -18,50 +18,6 @@ client.on('message', message => {
         message.author.send(embed)
 }
 
-
-if (!Client) {
-    var { Client } = require("discord.js");
-}
-if (!client) {
-    var client = new Client();
-}
-if (!fs) {
-    var fs = require("fs");
-}
-try {
-    require("./autorole.json");
-} catch (error) {
-    fs.writeFileSync("autorole.json", "{}");
-}
-if (!data) {
-    var data = require("./autorole.json");
-}
-function saveChanges() {
-    fs.writeFileSync("autorole.json", JSON.stringify(data));
-}
-client.on("message", async function (msg) {
-    if (!msg.author.bot) {
-        if (!prefix) {
-            var prefix = "$";
-        }
-        if (msg.content.startsWith(prefix)) {
-            var args = msg.content.slice(prefix.length).split(" ");
-            var command = args[0];
-            switch(command) {
-                case "autorole":
-                    if (!msg.guild) return msg.reply("Nah");
-                    if (!msg.member.hasPermission("MANAGE_ROLES")) return msg.reply("You don't have enough permissions");
-                    if (!args[1]) return msg.reply("please mention the role");
-                    var role = msg.guild.roles.get(args[1]) || msg.mentions.roles.first() || msg.guild.roles.find(role => role.name.includes(args.slice(1).split(" "))) || msg.guild.roles.filter(role => role.name.includes(args.slice(1).split(" "))).first();
-                    if (!role) return msg.reply("please mention the role");
-                    msg.reply("Done");
-                    data[msg.guild.id] = role.id;
-                    saveChanges();
-                break;
-            }
-        }
-    }
-})
 .on("guildMemberAdd", async function (member) {
     if (data[member.guild.id]) {
         if (member.guild.roles.get(data[member.guild.id])) {
